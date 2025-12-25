@@ -1,0 +1,220 @@
+/* ===== Reset ===== */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: "Noto Sans TC", sans-serif;
+  color: #111;
+}
+
+/* ===== 固定導覽列 ===== */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 64px;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+}
+
+.headerLeft {
+  font-weight: 500;
+}
+
+.headerRight a {
+  margin-left: 28px;
+  text-decoration: none;
+  color: #555;
+  font-size: 14px;
+}
+
+.headerRight a.active {
+  background: #eee;
+  padding: 8px 16px;
+  border-radius: 999px;
+}
+
+/* ===== 封面（新增：sticky淡出容器，不影響視覺） ===== */
+.coverWrap {
+  height: 200vh; /* 只用來提供淡出區間 */
+}
+
+.cover {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at left bottom, rgba(180,210,255,0.45), transparent 55%),
+    radial-gradient(circle at right bottom, rgba(255,200,215,0.45), transparent 55%),
+    #fff;
+
+  will-change: transform, opacity;
+}
+
+.coverContent {
+  position: relative;
+  z-index: 2;
+  padding: 140px 80px;
+}
+
+.coverKicker {
+  font-size: 15px;
+  letter-spacing: 1.5px;
+  color: rgba(0,0,0,0.45);
+  margin-bottom: 14px;
+}
+
+.coverName {
+  margin: 0;
+  font-size: 88px;
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: 15px;
+}
+
+.coverEn {
+  margin-top: 16px;
+  font-size: 32px;
+  font-weight: 400;
+  letter-spacing: 2px;
+}
+
+/* ===== 信封翻蓋（不動） ===== */
+.coverFold {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 45%;
+  background: linear-gradient(
+    to top,
+    rgba(255,255,255,1),
+    rgba(255,255,255,0)
+  );
+  clip-path: polygon(
+    0 70%,
+    50% 55%,
+    100% 70%,
+    100% 100%,
+    0 100%
+  );
+}
+
+/* scroll 提示 */
+.scrollHint {
+  position: absolute;
+  bottom: 32px;
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: 4px;
+  color: rgba(0,0,0,0.35);
+  transition: opacity .3s ease;
+}
+
+.scrollHint.is-hidden {
+  opacity: 0;
+}
+
+/* ===== 分類頁（第二頁：只新增上下置中，不改卡片樣式） ===== */
+.categoryPage {
+  /* 你原本的設定保留 */
+  background: #fff;
+
+  /* ✅ 新增：上下置中 */
+  min-height: calc(100vh - 64px); /* 扣掉固定導覽列高度 */
+  display: flex;
+  align-items: center;            /* 垂直置中 */
+  justify-content: center;        /* 水平置中 */
+
+  /* 你原本 padding 保留 */
+  padding: 120px 80px;
+
+  /* 避免內容太靠上被 header 影響（不改整體比例，只是保險） */
+  padding-top: 120px;
+}
+
+/* Grid（不動） */
+.categoryGrid {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 24px;
+}
+
+/* 卡片（不動） */
+.categoryCard {
+  position: relative;
+  padding: 40px 28px;
+  border-radius: 12px;
+  text-decoration: none;
+  color: #111;
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(0,0,0,0.06);
+  transition: all 0.4s ease;
+  overflow: hidden;
+}
+
+.categoryCard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.categoryCard.blue::before {
+  background: radial-gradient(circle at bottom left, rgba(180,210,255,0.65), transparent 70%);
+}
+
+.categoryCard.pink::before {
+  background: radial-gradient(circle at bottom right, rgba(255,200,215,0.65), transparent 70%);
+}
+
+.categoryCard.neutral::before {
+  background: radial-gradient(circle at center, rgba(220,220,220,0.6), transparent 70%);
+}
+
+.categoryCard:hover::before {
+  opacity: 1;
+}
+
+.categoryCard:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.12);
+}
+
+.catIndex {
+  display: block;
+  font-size: 14px;
+  letter-spacing: 2px;
+  color: rgba(0,0,0,0.4);
+  margin-bottom: 16px;
+}
+
+.categoryCard h3 {
+  margin: 0 0 12px 0;
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.categoryCard p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(0,0,0,0.6);
+}
